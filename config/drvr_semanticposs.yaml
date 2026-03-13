@@ -1,0 +1,78 @@
+common_params:
+  gpu: "0,1,2,3"
+  seed: 1
+  experiment_id: "20260313"
+  checkpoint: null
+  pretrained_model: null
+
+
+save_params:
+  save_path: "/mnt/home/chensitao/code/DRVR/experiments/DRVR-SMP/"
+  save_file:  
+    - "/mnt/home/chensitao/code/DRVR/config/drvr_semanticposs.yaml"
+    - "/mnt/home/chensitao/code/DRVR/dataloader/dataset_semposs_ssc.py"
+    - "/mnt/home/chensitao/code/DRVR/models/*.py"
+    - "/mnt/home/chensitao/code/DRVR/tasks/semanticposs_ssc/*.py"
+
+
+model_params:
+  net_type: "DRVR"
+  query_shape: [128, 128, 16]
+  num_classes: 12
+  cross_attn_embed_dims: 128
+  cross_attn_ffn_dims: 512
+  cross_attn_n_heads: 4
+  cross_attn_n_points: 8
+  cross_attn_n_levels_1_2: 1
+  cross_attn_n_layers_1_2: 3
+  spatial_shape_list: [[128,128,16], [64,64,8], [32,32,4]]
+  height_maxpool_list: [4, 4, 4]
+  pretrained_model: "/mnt/home/chensitao/code/DRVR/pretrained/CENet_semanticposs"
+
+
+dataset_params:
+  dataset_name: "SemanticPOSS"
+  data_path: "/mnt/dataset/semantic-poss/dataset/sequences/"
+  label_path: "/mnt/dataset/semantic-poss-ssc/dataset/sequences/"
+  label_mapping: "/mnt/home/chensitao/code/DRVR/config/label_mapping/semantic-poss.yaml"
+  grid_shape_list: [[128,128,16], [64,64,8], [32,32,4]]
+  max_volume_space: [51.2, 25.6, 4.4]
+  min_volume_space: [0, -25.6, -2]
+  proj_img_size: [128, 1800]
+  range_img_means: [22.26779, 0.51144063, 1.5727469, -0.6350901, 13.875261] # from CENet
+  range_img_stds: [17.735949, 17.422485, 22.217215, 1.6433295, 14.0925865]
+  fov_up: 7
+  fov_down: -16
+  coarse_cls_freq: [237507, 24637]
+  fine_cls_freq: [ 26327220, 2632722, 829245, 16063541,
+                     1812243, 59342174, 1170307, 783713, 
+                     35259807, 2308931, 9040578, 3453465 ]
+
+  train_data_loader:
+    batch_size: 1
+    num_workers: 4   
+    flip_aug: True
+    
+  val_data_loader:
+    batch_size: 1
+    num_workers: 4
+    flip_aug: False
+
+
+train_params:
+  max_num_epochs: 30
+  report_epochs: 1
+  warmup_epochs: 1
+  learning_rate: 0.0002
+  lr_momentum: 0.9
+  optimizer: AdamW  # [SGD, Adam, AdamW]
+  momentum: 0.9
+  nesterov: True
+  weight_decay: 0.01  # SGD:1.0e-4, Adam/AdamW:0.01
+  focal_weight: 1.0
+  dice_weight: 1.0
+
+infer_params:
+  model_path: null
+  save_dir: null
+  save_pred: False # True

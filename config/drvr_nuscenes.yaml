@@ -1,0 +1,82 @@
+common_params:
+  gpu: "0,1,2,3,4,5,6,7"
+  seed: 1
+  experiment_id: "20260313"
+  checkpoint: null
+  pretrained_model: null
+
+
+save_params:
+  save_path: "/mnt/home/chensitao/code/DRVR/experiments/DRVR-NUS/"
+  save_file: 
+    - "/mnt/home/chensitao/code/DRVR/config/drvr_nuscenes.yaml"
+    - "/mnt/home/chensitao/code/DRVR/dataloader/dataset_nus_openocc.py"
+    - "/mnt/home/chensitao/code/DRVR/models/*.py"
+    - "/mnt/home/chensitao/code/DRVR/tasks/nuscenes_openocc/*.py"
+
+
+model_params:
+  net_type: "DRVR"
+  query_shape: [128, 128, 10]
+  num_classes: 17
+  cross_attn_embed_dims: 128
+  cross_attn_ffn_dims: 512
+  cross_attn_n_heads: 4
+  cross_attn_n_points: 8
+  cross_attn_n_levels_1_4: 1
+  cross_attn_n_layers_1_4: 3
+  spatial_shape_list: [[128,128,16], [64,64,8], [32,32,4]]
+  height_maxpool_list: [4, 4, 4]
+  pretrained_model: "/mnt/home/chensitao/code/DRVR/pretrained/CENet_nuScenes.pth"
+
+
+dataset_params:
+  dataset_name: "nus_openocc"
+  data_path: "/mnt/dataset/nuscenes/"
+  label_path: "/mnt/dataset/nuScenes-Occupancy-v0.1/"
+  sweeps_num: 0 # 10
+  grid_shape_list: [[128,128,16], [64,64,8], [32,32,4]]
+  max_volume_space: [51.2, 51.2, 3]
+  min_volume_space: [-51.2, -51.2, -5]
+  proj_img_size: [64, 2048]
+  range_img_means: [12.12, 10.88, 0.23, -1.04, 0.21]
+  range_img_stds: [12.32, 11.47, 6.91, 0.86, 0.16]
+  fov_up: 10
+  fov_down: -30
+  coarse_cls_freq: [19918, 4473]
+  fine_cls_freq: [ 2242961742295, 25985376, 1561108, 28862014, 196106643, 15920504,
+              2158753, 26539491, 4004729, 34838681, 75173306, 2255027978, 
+              50959399, 646022466, 869055679, 1446141335, 1724391378 ]
+
+  train_data_loader:
+    pkl_file: '/mnt/home/chensitao/code/DRVR/occ_infos/nuscenes_occ_infos_train.pkl'
+    batch_size: 1
+    num_workers: 4   
+    flip_aug: True
+    
+  val_data_loader:
+    pkl_file: '/mnt/home/chensitao/code/DRVR/occ_infos/nuscenes_occ_infos_val.pkl'
+    batch_size: 1
+    num_workers: 4
+    flip_aug: False
+
+
+train_params:
+  max_num_epochs: 50
+  report_epochs: 1
+  warmup_epochs: 1
+  learning_rate: 0.001
+  lr_momentum: 0.9
+  optimizer: AdamW  # [SGD, Adam, AdamW]
+  momentum: 0.9
+  nesterov: True
+  weight_decay: 0.01  # SGD:1.0e-4, Adam/AdamW:0.01
+  focal_weight: 1.0
+  dice_weight: 1.0
+
+
+infer_params:
+  pkl_file: '/mnt/home/chensitao/code/DRVR/occ_infos/nuscenes_occ_infos_val.pkl'
+  model_path: null
+  save_dir: null
+  save_pred: False # True
