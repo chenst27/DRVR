@@ -31,6 +31,10 @@ pip install spconv-cu116 tensorboard numba nuscenes-devkit
     - Download the generated train info file from [Google Drive](https://github.com/JeffWang987/OpenOccupancy/releases/download/train_pkl/nuscenes_occ_infos_train.pkl).
     - Download the generated val info file from [Google Drive](https://github.com/JeffWang987/OpenOccupancy/releases/download/val_pkl/nuscenes_occ_infos_val.pkl).
 
+4. Occ3D-nuScenes
+    - Download nuScenes from [nuScenes](https://www.nuscenes.org/nuscenes)
+    - Download OCC labels from [Occ3D-nuScenes](https://tsinghua-mars-lab.github.io/Occ3D/)
+
 ## 🎇 Training and Evaluation
 
 1. SemanticKITTI
@@ -45,3 +49,7 @@ pip install spconv-cu116 tensorboard numba nuscenes-devkit
 3. nuScenes-Occupancy
     - Modify the configuration file `config/drvr_nuscenes.yaml`.
     - Enter the `tasks/nuscenes_openocc` folder, modify `run.sh` and run the command `./run.sh`.
+
+4. Occ3D-nuScenes
+    - Modify the configuration file `config/drvr_occ3d.yaml`.
+    - Enter the `tasks/nuscenes_occ3d` folder, modify `run.sh` and run the command `./run.sh`.
