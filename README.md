@@ -1,4 +1,6 @@
-## 🛠️Environment
+# Semantic Occupancy Prediction with Dual Range-Voxel Representation
+
+## Environment
 
 1. Create the conda environment
 ```setup
@@ -14,7 +16,7 @@ pip install mmcv-full -f https://download.openmmlab.com/mmcv/dist/cu116/torch1.1
 pip install spconv-cu116 tensorboard numba nuscenes-devkit
 ```
 
-## 📦 Prepare Dataset
+## Prepare Dataset
 
 1. SemanticKITTI
     - Download SemanticKITTI from [SemanticKITTI](https://semantic-kitti.org/dataset.html)
@@ -35,7 +37,17 @@ pip install spconv-cu116 tensorboard numba nuscenes-devkit
     - Download nuScenes from [nuScenes](https://www.nuscenes.org/nuscenes)
     - Download OCC labels from [Occ3D-nuScenes](https://tsinghua-mars-lab.github.io/Occ3D/)
 
-## 🎇 Training and Evaluation
+## Model Zoo
+
+| Method | Dataset | IoU (%) | mIoU (%) |                                                Weights                                                | 
+|:------:|:-------:|:-------:|:--------:|:-----------------------------------------------------------------------------------------------------:|
+|  DRVR  | SemanticKITTI |  60.3  |  30.4  | [Google-drive](https://drive.google.com/file/d/1rFxY2vrympDsEfI5M9eDTYeKMtim5hi1/view?usp=sharing) |
+|  DRVR  | SemanticPOSS  |  58.4  |  22.7  | [Google-drive](https://drive.google.com/file/d/1wjy0Fb15D9D4jXIlF1uk-PpuSxBOOsY3/view?usp=sharing) |
+|  DRVR  | nuScenes-Occupancy | 30.6  |  21.3  | [Google-drive](https://drive.google.com/file/d/1ZWegImWqe90gopWF4M6S01b3k3Za_pSO/view?usp=sharing) |
+|  DRVR  | Occ3D (with mask) | 84.7  |  50.1  | [Google-drive](https://drive.google.com/file/d/1gh9Z-vSkwfTk-JLduaJBmGFWFF7frFQu/view?usp=sharing) |
+|  DRVR  | Occ3D (w/o mask)  | 40.2  |  29.4  | [Google-drive](https://drive.google.com/file/d/19pB4M2yS10oqrSGX9mr3VgBuRd6Y3c7O/view?usp=sharing) |
+
+## Training and Evaluation
 
 1. SemanticKITTI
 
